@@ -222,6 +222,11 @@ public class buku extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("DATA PENERBIT");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -370,6 +375,13 @@ public class buku extends javax.swing.JFrame {
             ad.setVisible(true);
             dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        // TODO add your handling code here:
+         penerbit ad = new penerbit ();
+            ad.setVisible(true);
+            dispose();
+    }//GEN-LAST:event_jMenu3MouseClicked
 
     /**
      * @param args the command line arguments

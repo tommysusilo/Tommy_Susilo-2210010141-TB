@@ -1,3 +1,4 @@
+
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -11,12 +12,12 @@ import javax.swing.JOptionPane;
  *
  * @author Win 10
  */
-public class home extends javax.swing.JFrame {
+public class penerbit extends javax.swing.JFrame {
 
     /**
-     * Creates new form home
+     * Creates new form penerbit
      */
-    public home() {
+    public penerbit() {
         initComponents();
     }
 
@@ -31,17 +32,16 @@ public class home extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblTransaksi = new javax.swing.JTable();
         btn_tambah = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        no_transaksi = new javax.swing.JTextField();
+        no_penerbit = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        nama_buku = new javax.swing.JComboBox<>();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        no_transaksi1 = new javax.swing.JTextField();
+        nama_penerbit = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -52,10 +52,7 @@ public class home extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("NAMA BUKU");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("TANGGAL TRANSAKSI");
+        jLabel2.setText("NAMA PENERBIT");
 
         tblTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -100,23 +97,43 @@ public class home extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("NO. TRANSAKSI");
+        jLabel5.setText("NO. PENERBIT");
 
-        no_transaksi.addActionListener(new java.awt.event.ActionListener() {
+        no_penerbit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                no_transaksiActionPerformed(evt);
+                no_penerbitActionPerformed(evt);
             }
         });
-        no_transaksi.addKeyListener(new java.awt.event.KeyAdapter() {
+        no_penerbit.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                no_transaksiKeyTyped(evt);
+                no_penerbitKeyTyped(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("TRANSAKSI PENJUALAN");
+        jLabel6.setText("DATA PENERBIT");
 
-        nama_buku.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        no_transaksi1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no_transaksi1ActionPerformed(evt);
+            }
+        });
+        no_transaksi1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                no_transaksi1KeyTyped(evt);
+            }
+        });
+
+        nama_penerbit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nama_penerbitActionPerformed(evt);
+            }
+        });
+        nama_penerbit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nama_penerbitKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,24 +142,26 @@ public class home extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel5))
-                        .addGap(29, 29, 29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(no_transaksi, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-                            .addComponent(nama_buku, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel6)
+                            .addComponent(no_penerbit)
+                            .addComponent(no_transaksi1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nama_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -150,31 +169,33 @@ public class home extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(no_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(no_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(no_transaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nama_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nama_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(80, 80, 80)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenu1.setText("TRANSAKSI");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuBar1.setPreferredSize(new java.awt.Dimension(207, 35));
+
+        jMenu1.setText("TRANSKASI");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu2.setBorder(null);
@@ -186,8 +207,9 @@ public class home extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu3.setText("DATA PENERBIT");
-        jMenu3.setPreferredSize(new java.awt.Dimension(93, 35));
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu3MouseClicked(evt);
@@ -210,85 +232,30 @@ public class home extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 468, Short.MAX_VALUE)
+            .addGap(0, 442, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void no_transaksiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_transaksiKeyTyped
-        char c = evt.getKeyChar();
-        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
-            evt.consume(); // Mencegah karakter yang bukan angka
-            JOptionPane.showMessageDialog(null,
-                "Masukkan angka yang valid!",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_no_transaksiKeyTyped
-
-    private void no_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_transaksiActionPerformed
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_no_transaksiActionPerformed
+        home ad = new home ();
+        ad.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenu1MouseClicked
 
-    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         // TODO add your handling code here:
-        //        String id;
-        //        id= no_transaksi.getText();
-        //        db.hapus(id);
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-    }//GEN-LAST:event_btn_hapusActionPerformed
-
-    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
-        // TODO add your handling code here:
-        //        String id_agenda,agenda,tempat;
-        //        java.util.Date tanggal;
-        //        id_agenda = no_transaksi.getText();
-        //        agenda = nama_agenda.getText();
-        //        tanggal = tgl_transaksi.getDate();
-        //        tempat = tempat_agenda.getText();
-        //        try {
-            //            db.edit(id_agenda, agenda, tanggal, tempat);
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-    }//GEN-LAST:event_btn_editActionPerformed
-
-    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
-        //        // TODO add your handling code here:
-        //        String id_agenda,agenda,tempat;
-        //        java.util.Date tanggal;
-        //
-        //        id_agenda = no_transaksi.getText();
-        //        agenda = nama_agenda.getText();
-        //        tanggal = tgl_transaksi.getDate();
-        //        tempat = tempat_agenda.getText();
-        //
-        //        try {
-            //            db.tambah(id_agenda,agenda,tanggal,tempat);
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-    }//GEN-LAST:event_btn_tambahActionPerformed
+        buku ad = new buku ();
+        ad.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     private void tblTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTransaksiMouseClicked
         // TODO add your handling code here:
@@ -312,16 +279,94 @@ public class home extends javax.swing.JFrame {
         //        tempat_agenda.setText(tblTransaksi.getValueAt(row, 3).toString());
     }//GEN-LAST:event_tblTransaksiMouseClicked
 
-    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
+        //        // TODO add your handling code here:
+        //        String id_agenda,agenda,tempat;
+        //        java.util.Date tanggal;
+        //
+        //        id_agenda = no_transaksi.getText();
+        //        agenda = nama_agenda.getText();
+        //        tanggal = tgl_transaksi.getDate();
+        //        tempat = tempat_agenda.getText();
+        //
+        //        try {
+            //            db.tambah(id_agenda,agenda,tanggal,tempat);
+            //        } catch (SQLException ex) {
+            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
+            //        }
+        //        try {
+            //            showTable();
+            //        } catch (SQLException ex) {
+            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
+            //        }
+    }//GEN-LAST:event_btn_tambahActionPerformed
+
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         // TODO add your handling code here:
-        buku ad = new buku ();
-            ad.setVisible(true);
-            dispose();
-    }//GEN-LAST:event_jMenu2MouseClicked
+        //        String id_agenda,agenda,tempat;
+        //        java.util.Date tanggal;
+        //        id_agenda = no_transaksi.getText();
+        //        agenda = nama_agenda.getText();
+        //        tanggal = tgl_transaksi.getDate();
+        //        tempat = tempat_agenda.getText();
+        //        try {
+            //            db.edit(id_agenda, agenda, tanggal, tempat);
+            //        } catch (SQLException ex) {
+            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
+            //        }
+        //        try {
+            //            showTable();
+            //        } catch (SQLException ex) {
+            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
+            //        }
+    }//GEN-LAST:event_btn_editActionPerformed
+
+    private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
+        // TODO add your handling code here:
+        //        String id;
+        //        id= no_transaksi.getText();
+        //        db.hapus(id);
+        //        try {
+            //            showTable();
+            //        } catch (SQLException ex) {
+            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
+            //        }
+    }//GEN-LAST:event_btn_hapusActionPerformed
+
+    private void no_penerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_penerbitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_no_penerbitActionPerformed
+
+    private void no_penerbitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_penerbitKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+            evt.consume(); // Mencegah karakter yang bukan angka
+            JOptionPane.showMessageDialog(null,
+                "Masukkan angka yang valid!",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_no_penerbitKeyTyped
+
+    private void no_transaksi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_transaksi1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_no_transaksi1ActionPerformed
+
+    private void no_transaksi1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_transaksi1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_no_transaksi1KeyTyped
+
+    private void nama_penerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama_penerbitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nama_penerbitActionPerformed
+
+    private void nama_penerbitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nama_penerbitKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nama_penerbitKeyTyped
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         // TODO add your handling code here:
-         penerbit ad = new penerbit ();
+            home ad = new home ();
             ad.setVisible(true);
             dispose();
     }//GEN-LAST:event_jMenu3MouseClicked
@@ -343,20 +388,20 @@ public class home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(penerbit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(penerbit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(penerbit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(penerbit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new home().setVisible(true);
+                new penerbit().setVisible(true);
             }
         });
     }
@@ -365,9 +410,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_tambah;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
@@ -376,8 +419,9 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JComboBox<String> nama_buku;
-    private javax.swing.JTextField no_transaksi;
+    private javax.swing.JTextField nama_penerbit;
+    private javax.swing.JTextField no_penerbit;
+    private javax.swing.JTextField no_transaksi1;
     private javax.swing.JTable tblTransaksi;
     // End of variables declaration//GEN-END:variables
 }
