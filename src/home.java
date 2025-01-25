@@ -1,5 +1,16 @@
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.table.DefaultTableModel;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,10 +24,13 @@ import javax.swing.JOptionPane;
  */
 public class home extends javax.swing.JFrame {
 
+    private final proses_db db;
+
     /**
      * Creates new form home
      */
     public home() {
+        db = new proses_db();
         initComponents();
     }
 
