@@ -72,7 +72,29 @@ public class proses_db {
     }
     
     
-        void tambah_penerbit(String id_penerbit, String nama_penerbit) throws SQLException {
+   void tambah_buku(String id_buku, String nama, String harga, String id_penerbit) throws SQLException {
+         String sql = "insert into tb_buku (id_buku,nama_buku,id_penerbit,harga_buku) values (?,?,?,?)";
+
+    pst = con.prepareStatement(sql);
+
+    // Set parameter untuk query
+    pst.setString(1, id_buku);
+
+    pst.setString(2, nama);
+     pst.setString(3,id_penerbit);
+     pst.setString(4, harga);
+
+    // Mengonversi java.util.Date menjadi java.sql.Date dengan konstruktor
+ 
+
+     // Menjalankan query
+     int executeUpdate = pst.executeUpdate(); // Mengeksekusi query untuk menambah data ke database
+          
+        
+    }
+        
+        
+         void tambah_penerbit(String id_penerbit, String nama_penerbit) throws SQLException {
          String sql = "insert into tb_penerbit (id_penerbit,nama_penerbit) values (?,?)";
 
     pst = con.prepareStatement(sql);
@@ -90,6 +112,7 @@ public class proses_db {
           
         
     }
+    
     
     
     
@@ -151,6 +174,17 @@ public class proses_db {
          Logger.getLogger(proses_db.class.getName()).log(Level.SEVERE, null, ex);
      }
     }
+     
+      public void hapus_buku(String id){
+     try {
+         String sql ="delete from tb_buku where id_buku = ?";
+         pst = con.prepareStatement(sql);
+         pst.setString(1,id);
+         int executeUpdate = pst.executeUpdate();
+     } catch (SQLException ex) {
+         Logger.getLogger(proses_db.class.getName()).log(Level.SEVERE, null, ex);
+     }
+    }
     
       void edit(String id_agenda, String agenda, Date tanggal, String tempat) throws SQLException {
       String sql;
@@ -190,6 +224,27 @@ public class proses_db {
 
     pst.setString(1, nama_penerbit);
 
+    // Mengonversi java.util.Date menjadi java.sql.Date dengan konstruktor
+   
+
+     // Menjalankan query
+     int executeUpdate = pst.executeUpdate(); // Mengeksekusi query untuk menambah data ke database
+          
+        
+    }
+    
+    void edit_buku(String id_buku,String nama,String harga,String id_penerbit) throws SQLException {
+      String sql;
+     sql = "update tb_buku set nama_buku=?, id_penerbit=?, harga_buku=? where id_buku=?";
+
+    pst = con.prepareStatement(sql);
+
+    // Set parameter untuk query
+ pst.setString(4, id_buku);
+
+    pst.setString(1, nama);
+     pst.setString(2,id_penerbit);
+     pst.setString(3, harga);
     // Mengonversi java.util.Date menjadi java.sql.Date dengan konstruktor
    
 

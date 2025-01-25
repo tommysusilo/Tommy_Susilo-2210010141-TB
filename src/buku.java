@@ -2,6 +2,8 @@
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,6 +23,7 @@ public class buku extends javax.swing.JFrame {
 
     private final proses_db db;
     private DefaultTableModel tbl;
+    private HashMap<String, String> penerbitMap = new HashMap<>();
 
     /**
      * Creates new form buku
@@ -33,6 +36,9 @@ public class buku extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(buku.class.getName()).log(Level.SEVERE, null, ex);
         }
+         penerbitMap = new HashMap<>();
+        loadComboBoxData(); 
+        
     }
 
     /**
@@ -56,7 +62,7 @@ public class buku extends javax.swing.JFrame {
         harga_buku = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         nama_penerbit = new javax.swing.JComboBox<>();
-        no_transaksi1 = new javax.swing.JTextField();
+        no_buku = new javax.swing.JTextField();
         nama_buku = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -134,15 +140,20 @@ public class buku extends javax.swing.JFrame {
         jLabel6.setText("DATA BUKU");
 
         nama_penerbit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        no_transaksi1.addActionListener(new java.awt.event.ActionListener() {
+        nama_penerbit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                no_transaksi1ActionPerformed(evt);
+                nama_penerbitActionPerformed(evt);
             }
         });
-        no_transaksi1.addKeyListener(new java.awt.event.KeyAdapter() {
+
+        no_buku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                no_bukuActionPerformed(evt);
+            }
+        });
+        no_buku.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                no_transaksi1KeyTyped(evt);
+                no_bukuKeyTyped(evt);
             }
         });
 
@@ -176,7 +187,7 @@ public class buku extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nama_penerbit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(no_transaksi1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(no_buku, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(nama_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -203,7 +214,7 @@ public class buku extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(no_transaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(no_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -289,78 +300,106 @@ public class buku extends javax.swing.JFrame {
 
     private void tblBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBukuMouseClicked
         // TODO add your handling code here:
-        //        int row = tblTransaksi.getSelectedRow();
-        //        no_transaksi.setText(tblTransaksi.getValueAt(row, 0).toString());
-        //        nama_agenda.setText(tblTransaksi.getValueAt(row, 1).toString());
-        //        String tanggalStr = tblTransaksi.getValueAt(row, 2).toString();
-        //
-        //        // Mengonversi String tanggal ke Date
-        //        try {
-            //            // Menggunakan format yang sesuai dengan format tanggal di database (misalnya yyyy-MM-dd)
-            //            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            //            Date tanggal = sdf.parse(tanggalStr);
-            //
-            //            // Menetapkan tanggal ke JDateChooser
-            //            tgl_transaksi.setDate(tanggal); // Menggunakan metode setDate() untuk menetapkan nilai tanggal
-            //        } catch (ParseException e) {
-            //            // Jika parsing gagal, tampilkan error
-            //
-            //        }
-        //        tempat_agenda.setText(tblTransaksi.getValueAt(row, 3).toString());
+                int row = tblBuku.getSelectedRow();
+                no_buku.setText(tblBuku.getValueAt(row, 0).toString());
+                nama_buku.setText(tblBuku.getValueAt(row, 1).toString());
+                harga_buku.setText(tblBuku.getValueAt(row, 3).toString());
+                String selectedPenerbit = tblBuku.getValueAt(row, 2).toString(); // Misalnya nama penerbit ada di kolom 2
+    
+    // Set nilai JComboBox sesuai nama penerbit
+                nama_penerbit.setSelectedItem(selectedPenerbit);
+//for (Map.Entry<String, String> entry : penerbitMap.entrySet()) {
+//    if (entry.getValue().equals(idPenerbit)) {
+//        nama_penerbit.setSelectedItem(entry.getKey()); // Set nama penerbit di JComboBox
+//        break;
+//    }
+//}
+//                // Mengonversi String tanggal ke Date
+                
     }//GEN-LAST:event_tblBukuMouseClicked
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         //        // TODO add your handling code here:
-        //        String id_agenda,agenda,tempat;
-        //        java.util.Date tanggal;
-        //
-        //        id_agenda = no_transaksi.getText();
-        //        agenda = nama_agenda.getText();
-        //        tanggal = tgl_transaksi.getDate();
-        //        tempat = tempat_agenda.getText();
-        //
-        //        try {
-            //            db.tambah(id_agenda,agenda,tanggal,tempat);
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
+                String id_buku,nama,harga;
+                id_buku = no_buku.getText();
+                nama = nama_buku.getText();
+                harga = harga_buku.getText();
+                String selectedNamaPenerbit = (String) nama_penerbit.getSelectedItem();
+        String id_penerbit = penerbitMap.get(selectedNamaPenerbit);
+        
+        if (id_penerbit == null || id_penerbit.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Pilih penerbit terlebih dahulu!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        no_buku.setText("");
+    nama_buku.setText("");
+    harga_buku.setText("");
+      nama_penerbit.setSelectedIndex(0);
+           
+         
+        try {
+            db.tambah_buku(id_buku,nama,harga,id_penerbit);
+        } catch (SQLException ex) {
+            Logger.getLogger(buku.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                  
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(buku.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                    
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         // TODO add your handling code here:
-        //        String id_agenda,agenda,tempat;
-        //        java.util.Date tanggal;
-        //        id_agenda = no_transaksi.getText();
-        //        agenda = nama_agenda.getText();
-        //        tanggal = tgl_transaksi.getDate();
-        //        tempat = tempat_agenda.getText();
-        //        try {
-            //            db.edit(id_agenda, agenda, tanggal, tempat);
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
+                String id_buku,nama,harga;
+                id_buku = no_buku.getText();
+                nama = nama_buku.getText();
+                harga = harga_buku.getText();
+                String selectedNamaPenerbit = (String) nama_penerbit.getSelectedItem();
+                String id_penerbit = penerbitMap.get(selectedNamaPenerbit);
+        
+        if (id_penerbit == null || id_penerbit.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Pilih penerbit terlebih dahulu!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+             
+        try {
+            db.edit_buku(id_buku,nama,harga,id_penerbit);
+        } catch (SQLException ex) {
+            Logger.getLogger(buku.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(buku.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         no_buku.setText("");
+    nama_buku.setText("");
+    harga_buku.setText("");
+      nama_penerbit.setSelectedIndex(0);
+                  
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         // TODO add your handling code here:
-        //        String id;
-        //        id= no_transaksi.getText();
-        //        db.hapus(id);
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
+                String id;
+                id= no_buku.getText();
+                db.hapus_buku(id);
+                 no_buku.setText("");
+    nama_buku.setText("");
+    harga_buku.setText("");
+      nama_penerbit.setSelectedIndex(0);
+ 
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(buku.class.getName()).log(Level.SEVERE, null, ex);
+        }
+              
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void harga_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_harga_bukuActionPerformed
@@ -378,13 +417,13 @@ public class buku extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_harga_bukuKeyTyped
 
-    private void no_transaksi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_transaksi1ActionPerformed
+    private void no_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_bukuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_no_transaksi1ActionPerformed
+    }//GEN-LAST:event_no_bukuActionPerformed
 
-    private void no_transaksi1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_transaksi1KeyTyped
+    private void no_bukuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_bukuKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_no_transaksi1KeyTyped
+    }//GEN-LAST:event_no_bukuKeyTyped
 
     private void nama_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama_bukuActionPerformed
         // TODO add your handling code here:
@@ -407,6 +446,27 @@ public class buku extends javax.swing.JFrame {
             ad.setVisible(true);
             dispose();
     }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void nama_penerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama_penerbitActionPerformed
+        // TODO add your handling code here:
+//        try {
+//        // Mendapatkan data dari database
+//        ResultSet rs = db.lihat_penerbit(); // Asumsikan ini method untuk mengambil data dari database
+//        
+//        // Hapus semua item di JComboBox terlebih dahulu (opsional jika hanya menambahkan data baru)
+//        nama_penerbit.removeAllItems();
+//        
+//        // Iterasi data ResultSet dan tambahkan ke JComboBox
+//        while (rs.next()) {
+//            String penerbit = rs.getString("nama_penerbit"); // Sesuaikan dengan nama kolom tabel
+//            nama_penerbit.addItem(penerbit);
+//        }
+//        
+//    } catch (SQLException ex) {
+//            // Untuk debugging jika terjadi error
+//            
+//    }
+    }//GEN-LAST:event_nama_penerbitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -461,7 +521,7 @@ public class buku extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField nama_buku;
     private javax.swing.JComboBox<String> nama_penerbit;
-    private javax.swing.JTextField no_transaksi1;
+    private javax.swing.JTextField no_buku;
     private javax.swing.JTable tblBuku;
     // End of variables declaration//GEN-END:variables
 
@@ -480,4 +540,32 @@ public class buku extends javax.swing.JFrame {
         
         tblBuku.setModel(tbl);
     }
+
+    private void loadComboBoxData() {
+        try {
+              ResultSet rs = db.lihat_penerbit(); // Ambil data dari database
+        
+        nama_penerbit.removeAllItems(); // Hapus item lama (jika ada)
+        nama_penerbit.addItem("-- Pilih Penerbit --"); // Tambahkan placeholder
+        penerbitMap.clear(); // Bersihkan HashMap untuk menghindari duplikasi
+
+        while (rs.next()) {
+            String id_penerbit = rs.getString("id_penerbit"); // Ambil id_penerbit
+            String nama = rs.getString("nama_penerbit"); // Ambil nama_penerbit
+            
+            // Simpan ke HashMap
+            penerbitMap.put(nama, id_penerbit);
+
+            // Tambahkan nama ke JComboBox
+            nama_penerbit.addItem(nama);
+            }
+        } catch (SQLException ex) {
+            // Tampilkan error (debugging)
+            
+        }
+    }
+
+   
+
+ 
 }

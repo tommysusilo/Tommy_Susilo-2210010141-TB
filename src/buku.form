@@ -116,7 +116,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="nama_penerbit" alignment="0" max="32767" attributes="0"/>
-                              <Component id="no_transaksi1" alignment="1" max="32767" attributes="0"/>
+                              <Component id="no_buku" alignment="1" max="32767" attributes="0"/>
                               <Component id="nama_buku" alignment="0" min="-2" pref="488" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -151,7 +151,7 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="no_transaksi1" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="no_buku" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -289,14 +289,17 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nama_penerbitActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="no_transaksi1">
+        <Component class="javax.swing.JTextField" name="no_buku">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="no_transaksi1ActionPerformed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="no_transaksi1KeyTyped"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="no_bukuActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="no_bukuKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="nama_buku">

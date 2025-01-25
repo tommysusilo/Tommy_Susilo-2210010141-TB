@@ -295,6 +295,8 @@ public class penerbit extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(penerbit.class.getName()).log(Level.SEVERE, null, ex);
         }
+        no_penerbit.setText("");
+    nama_penerbit1.setText("");
                    
     }//GEN-LAST:event_btn_tambahActionPerformed
 
@@ -318,7 +320,8 @@ public class penerbit extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(penerbit.class.getName()).log(Level.SEVERE, null, ex);
         }
-             
+                  no_penerbit.setText("");
+    nama_penerbit1.setText("");   
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
@@ -332,7 +335,8 @@ public class penerbit extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(penerbit.class.getName()).log(Level.SEVERE, null, ex);
         }
-                 
+                  no_penerbit.setText("");
+    nama_penerbit1.setText("");       
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void no_penerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_penerbitActionPerformed
