@@ -71,7 +71,7 @@ public class proses_db {
         
     }
     
-    public ResultSet lihat(){
+    public ResultSet lihat_transaksi(){
         String sql ="select * from tb_transaksi";
      try {
          st = con.createStatement();

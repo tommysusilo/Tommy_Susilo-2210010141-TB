@@ -1,15 +1,11 @@
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
-import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 
 /*
@@ -25,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class home extends javax.swing.JFrame {
 
     private final proses_db db;
+    private DefaultTableModel tbl;
 
     /**
      * Creates new form home
@@ -32,6 +29,12 @@ public class home extends javax.swing.JFrame {
     public home() {
         db = new proses_db();
         initComponents();
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  
     }
 
     /**
@@ -394,4 +397,23 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JTextField no_transaksi;
     private javax.swing.JTable tblTransaksi;
     // End of variables declaration//GEN-END:variables
+
+    private void showTable() throws SQLException {
+        tbl = new DefaultTableModel(new String[]{"No. Agenda","Nama Agenda","Tanggal","Tempat"},0);
+        ResultSet rs;
+        rs = db.lihat_transaksi();
+        while(rs.next()){
+            tbl.addRow(new Object[]{
+                rs.getString("id_transaksi"),
+                rs.getString("id_buku"),
+                rs.getString("id_penerbit"),
+                rs.getString("waktu_transaksi")
+            });
+        }
+        
+        tblTransaksi.setModel(tbl);
+    }
+
+  
+  
 }
