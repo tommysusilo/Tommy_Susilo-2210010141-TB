@@ -254,6 +254,40 @@ public class proses_db {
         
     }
     
+    public String getLastTransactionID() throws SQLException {
+    String lastID = "";
+    String query = "SELECT id_penjualan FROM tb_transaksi ORDER BY id_penjualan DESC LIMIT 1";
+
+    try (PreparedStatement ps = con.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) {
+            lastID = rs.getString("id_transaksi"); // Ambil ID terakhir
+        }
+    }
+
+    return lastID; // Jika kosong, akan mengembalikan string kosong
+}
+    
+    
+    public String generateNewTransactionID() throws SQLException {
+    String lastID = getLastTransactionID();
+
+    if (lastID.isEmpty()) {
+        // Jika belum ada data, mulai dari T001
+        return "T001";
+    }
+
+    // Pisahkan prefix dan angka
+    String prefix = lastID.substring(0, 1); // Ambil huruf "T"
+    int number = Integer.parseInt(lastID.substring(1)); // Ambil angka setelah huruf
+
+    // Tingkatkan angka
+    number++;
+
+    // Format ulang menjadi ID baru
+    return prefix + String.format("%03d", number); // Contoh: "T002"
+}
+
+    
     
     
 }
