@@ -1,6 +1,11 @@
 
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,11 +19,20 @@ import javax.swing.JOptionPane;
  */
 public class penerbit extends javax.swing.JFrame {
 
+    private final proses_db db;
+    private DefaultTableModel tbl;
+
     /**
      * Creates new form penerbit
      */
     public penerbit() {
+        db = new proses_db();
         initComponents();
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(penerbit.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -33,7 +47,7 @@ public class penerbit extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tblTransaksi = new javax.swing.JTable();
+        tblPenerbit = new javax.swing.JTable();
         btn_tambah = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
@@ -41,7 +55,7 @@ public class penerbit extends javax.swing.JFrame {
         no_penerbit = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         no_transaksi1 = new javax.swing.JTextField();
-        nama_penerbit = new javax.swing.JTextField();
+        nama_penerbit1 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -54,23 +68,23 @@ public class penerbit extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("NAMA PENERBIT");
 
-        tblTransaksi.setModel(new javax.swing.table.DefaultTableModel(
+        tblPenerbit.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3"
             }
         ));
-        tblTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblPenerbit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblTransaksiMouseClicked(evt);
+                tblPenerbitMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(tblTransaksi);
+        jScrollPane4.setViewportView(tblPenerbit);
 
         btn_tambah.setBackground(new java.awt.Color(51, 128, 255));
         btn_tambah.setText("TAMBAH");
@@ -124,14 +138,14 @@ public class penerbit extends javax.swing.JFrame {
             }
         });
 
-        nama_penerbit.addActionListener(new java.awt.event.ActionListener() {
+        nama_penerbit1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nama_penerbitActionPerformed(evt);
+                nama_penerbit1ActionPerformed(evt);
             }
         });
-        nama_penerbit.addKeyListener(new java.awt.event.KeyAdapter() {
+        nama_penerbit1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                nama_penerbitKeyTyped(evt);
+                nama_penerbit1KeyTyped(evt);
             }
         });
 
@@ -151,7 +165,7 @@ public class penerbit extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(no_penerbit)
                             .addComponent(no_transaksi1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nama_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(nama_penerbit1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -176,7 +190,7 @@ public class penerbit extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nama_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nama_penerbit1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(80, 80, 80)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -257,80 +271,68 @@ public class penerbit extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenu2MouseClicked
 
-    private void tblTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTransaksiMouseClicked
+    private void tblPenerbitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPenerbitMouseClicked
         // TODO add your handling code here:
-        //        int row = tblTransaksi.getSelectedRow();
-        //        no_transaksi.setText(tblTransaksi.getValueAt(row, 0).toString());
-        //        nama_agenda.setText(tblTransaksi.getValueAt(row, 1).toString());
-        //        String tanggalStr = tblTransaksi.getValueAt(row, 2).toString();
-        //
-        //        // Mengonversi String tanggal ke Date
-        //        try {
-            //            // Menggunakan format yang sesuai dengan format tanggal di database (misalnya yyyy-MM-dd)
-            //            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            //            Date tanggal = sdf.parse(tanggalStr);
-            //
-            //            // Menetapkan tanggal ke JDateChooser
-            //            tgl_transaksi.setDate(tanggal); // Menggunakan metode setDate() untuk menetapkan nilai tanggal
-            //        } catch (ParseException e) {
-            //            // Jika parsing gagal, tampilkan error
-            //
-            //        }
-        //        tempat_agenda.setText(tblTransaksi.getValueAt(row, 3).toString());
-    }//GEN-LAST:event_tblTransaksiMouseClicked
+                int row = tblPenerbit.getSelectedRow();
+                no_penerbit.setText(tblPenerbit.getValueAt(row, 0).toString());
+                nama_penerbit1.setText(tblPenerbit.getValueAt(row, 1).toString()); 
+        
+                // Mengonversi String tanggal ke Date
+                
+    }//GEN-LAST:event_tblPenerbitMouseClicked
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
-        //        // TODO add your handling code here:
-        //        String id_agenda,agenda,tempat;
-        //        java.util.Date tanggal;
-        //
-        //        id_agenda = no_transaksi.getText();
-        //        agenda = nama_agenda.getText();
-        //        tanggal = tgl_transaksi.getDate();
-        //        tempat = tempat_agenda.getText();
-        //
-        //        try {
-            //            db.tambah(id_agenda,agenda,tanggal,tempat);
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
+        try {
+            String id_penerbit,nama_penerbit;
+            id_penerbit = no_penerbit.getText();
+            nama_penerbit = nama_penerbit1.getText();
+            db.tambah_penerbit(id_penerbit,nama_penerbit);
+        } catch (SQLException ex) {
+            Logger.getLogger(penerbit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(penerbit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                   
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
         // TODO add your handling code here:
-        //        String id_agenda,agenda,tempat;
-        //        java.util.Date tanggal;
-        //        id_agenda = no_transaksi.getText();
-        //        agenda = nama_agenda.getText();
-        //        tanggal = tgl_transaksi.getDate();
-        //        tempat = tempat_agenda.getText();
-        //        try {
-            //            db.edit(id_agenda, agenda, tanggal, tempat);
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
+                String id_penerbit,nama_penerbit;
+                java.util.Date tanggal;
+                id_penerbit = no_penerbit.getText();
+                nama_penerbit = nama_penerbit1.getText();
+               
+  
+        try {
+            db.edit_penerbit(id_penerbit, nama_penerbit);
+        } catch (SQLException ex) {
+            Logger.getLogger(penerbit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+               
+                 
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(penerbit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         // TODO add your handling code here:
-        //        String id;
-        //        id= no_transaksi.getText();
-        //        db.hapus(id);
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
+                String id;
+                id= no_penerbit.getText();
+                db.hapus_penerbit(id);
+              
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(penerbit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                 
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void no_penerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_penerbitActionPerformed
@@ -356,17 +358,17 @@ public class penerbit extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_no_transaksi1KeyTyped
 
-    private void nama_penerbitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama_penerbitActionPerformed
+    private void nama_penerbit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama_penerbit1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nama_penerbitActionPerformed
+    }//GEN-LAST:event_nama_penerbit1ActionPerformed
 
-    private void nama_penerbitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nama_penerbitKeyTyped
+    private void nama_penerbit1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nama_penerbit1KeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_nama_penerbitKeyTyped
+    }//GEN-LAST:event_nama_penerbit1KeyTyped
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         // TODO add your handling code here:
-            home ad = new home ();
+            penerbit ad = new penerbit ();
             ad.setVisible(true);
             dispose();
     }//GEN-LAST:event_jMenu3MouseClicked
@@ -419,9 +421,23 @@ public class penerbit extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField nama_penerbit;
+    private javax.swing.JTextField nama_penerbit1;
     private javax.swing.JTextField no_penerbit;
     private javax.swing.JTextField no_transaksi1;
-    private javax.swing.JTable tblTransaksi;
+    private javax.swing.JTable tblPenerbit;
     // End of variables declaration//GEN-END:variables
+
+    private void showTable() throws SQLException {
+              tbl = new DefaultTableModel(new String[]{"No. Penerbit","Nama Penerbit"},0);
+        ResultSet rs;
+        rs = db.lihat_penerbit();
+        while(rs.next()){
+            tbl.addRow(new Object[]{
+                rs.getString("id_penerbit"),
+                rs.getString("nama_penerbit")
+            });
+        }
+        
+        tblPenerbit.setModel(tbl);
+    }
 }

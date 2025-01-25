@@ -71,6 +71,28 @@ public class proses_db {
         
     }
     
+    
+        void tambah_penerbit(String id_penerbit, String nama_penerbit) throws SQLException {
+         String sql = "insert into tb_penerbit (id_penerbit,nama_penerbit) values (?,?)";
+
+    pst = con.prepareStatement(sql);
+
+    // Set parameter untuk query
+    pst.setString(1, id_penerbit);
+
+    pst.setString(2, nama_penerbit);
+
+    // Mengonversi java.util.Date menjadi java.sql.Date dengan konstruktor
+ 
+
+     // Menjalankan query
+     int executeUpdate = pst.executeUpdate(); // Mengeksekusi query untuk menambah data ke database
+          
+        
+    }
+    
+    
+    
     public ResultSet lihat_transaksi(){
         String sql ="select * from tb_transaksi";
      try {
@@ -83,6 +105,31 @@ public class proses_db {
         
     }
     
+     public ResultSet lihat_buku(){
+        String sql ="SELECT * FROM tb_buku, tb_penerbit where tb_buku.id_penerbit = tb_penerbit.id_penerbit";
+     try {
+         st = con.createStatement();
+         rs = st.executeQuery(sql);
+     } catch (SQLException ex) {
+         Logger.getLogger(proses_db.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     return rs;
+        
+    }
+     
+        public ResultSet lihat_penerbit(){
+        String sql ="SELECT * FROM tb_penerbit";
+     try {
+         st = con.createStatement();
+         rs = st.executeQuery(sql);
+     } catch (SQLException ex) {
+         Logger.getLogger(proses_db.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     return rs;
+        
+    }
+    
+    
     public void hapus(String id){
      try {
          String sql ="delete from tb_agenda where id_agenda = ?";
@@ -94,6 +141,16 @@ public class proses_db {
      }
     }
     
+     public void hapus_penerbit(String id){
+     try {
+         String sql ="delete from tb_penerbit where id_penerbit = ?";
+         pst = con.prepareStatement(sql);
+         pst.setString(1,id);
+         int executeUpdate = pst.executeUpdate();
+     } catch (SQLException ex) {
+         Logger.getLogger(proses_db.class.getName()).log(Level.SEVERE, null, ex);
+     }
+    }
     
       void edit(String id_agenda, String agenda, Date tanggal, String tempat) throws SQLException {
       String sql;
@@ -114,6 +171,27 @@ public class proses_db {
     }
 
     pst.setString(3, tempat);
+
+     // Menjalankan query
+     int executeUpdate = pst.executeUpdate(); // Mengeksekusi query untuk menambah data ke database
+          
+        
+    }
+      
+
+    void edit_penerbit(String id_penerbit, String nama_penerbit) throws SQLException {
+      String sql;
+     sql = "update tb_penerbit set nama_penerbit=? where id_penerbit=?";
+
+    pst = con.prepareStatement(sql);
+
+    // Set parameter untuk query
+    pst.setString(2, id_penerbit);
+
+    pst.setString(1, nama_penerbit);
+
+    // Mengonversi java.util.Date menjadi java.sql.Date dengan konstruktor
+   
 
      // Menjalankan query
      int executeUpdate = pst.executeUpdate(); // Mengeksekusi query untuk menambah data ke database

@@ -399,7 +399,7 @@ public class home extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void showTable() throws SQLException {
-        tbl = new DefaultTableModel(new String[]{"No. Agenda","Nama Agenda","Tanggal","Tempat"},0);
+        tbl = new DefaultTableModel(new String[]{"No. Transaksi","Nama Buku","Nama Penerbit","Harga","waktu"},0);
         ResultSet rs;
         rs = db.lihat_transaksi();
         while(rs.next()){
@@ -407,6 +407,7 @@ public class home extends javax.swing.JFrame {
                 rs.getString("id_transaksi"),
                 rs.getString("id_buku"),
                 rs.getString("id_penerbit"),
+                 rs.getString("id_penerbit"),
                 rs.getString("waktu_transaksi")
             });
         }

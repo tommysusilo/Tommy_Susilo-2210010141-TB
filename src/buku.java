@@ -1,6 +1,11 @@
 
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,11 +19,20 @@ import javax.swing.JOptionPane;
  */
 public class buku extends javax.swing.JFrame {
 
+    private final proses_db db;
+    private DefaultTableModel tbl;
+
     /**
      * Creates new form buku
      */
     public buku() {
+        db = new proses_db();
         initComponents();
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(buku.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -34,16 +48,17 @@ public class buku extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tblTransaksi = new javax.swing.JTable();
+        tblBuku = new javax.swing.JTable();
         btn_tambah = new javax.swing.JButton();
         btn_edit = new javax.swing.JButton();
         btn_hapus = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        no_buku = new javax.swing.JTextField();
+        harga_buku = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         nama_penerbit = new javax.swing.JComboBox<>();
         no_transaksi1 = new javax.swing.JTextField();
         nama_buku = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -59,7 +74,7 @@ public class buku extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("NAMA PENERBIT");
 
-        tblTransaksi.setModel(new javax.swing.table.DefaultTableModel(
+        tblBuku.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -70,12 +85,12 @@ public class buku extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblBuku.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblTransaksiMouseClicked(evt);
+                tblBukuMouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(tblTransaksi);
+        jScrollPane4.setViewportView(tblBuku);
 
         btn_tambah.setBackground(new java.awt.Color(51, 128, 255));
         btn_tambah.setText("TAMBAH");
@@ -104,14 +119,14 @@ public class buku extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("NO. BUKU");
 
-        no_buku.addActionListener(new java.awt.event.ActionListener() {
+        harga_buku.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                no_bukuActionPerformed(evt);
+                harga_bukuActionPerformed(evt);
             }
         });
-        no_buku.addKeyListener(new java.awt.event.KeyAdapter() {
+        harga_buku.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                no_bukuKeyTyped(evt);
+                harga_bukuKeyTyped(evt);
             }
         });
 
@@ -142,6 +157,9 @@ public class buku extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("HARGA BUKU");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,20 +175,23 @@ public class buku extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(no_buku)
                             .addComponent(nama_penerbit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(no_transaksi1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(nama_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(harga_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -179,26 +200,30 @@ public class buku extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(no_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(no_transaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nama_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nama_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(34, 34, 34)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(no_transaksi1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nama_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nama_penerbit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel4))
+                    .addComponent(harga_buku, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(207, 35));
@@ -244,12 +269,12 @@ public class buku extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 442, Short.MAX_VALUE)
+            .addGap(0, 495, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         pack();
@@ -262,7 +287,7 @@ public class buku extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenu2MouseClicked
 
-    private void tblTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTransaksiMouseClicked
+    private void tblBukuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBukuMouseClicked
         // TODO add your handling code here:
         //        int row = tblTransaksi.getSelectedRow();
         //        no_transaksi.setText(tblTransaksi.getValueAt(row, 0).toString());
@@ -282,7 +307,7 @@ public class buku extends javax.swing.JFrame {
             //
             //        }
         //        tempat_agenda.setText(tblTransaksi.getValueAt(row, 3).toString());
-    }//GEN-LAST:event_tblTransaksiMouseClicked
+    }//GEN-LAST:event_tblBukuMouseClicked
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         //        // TODO add your handling code here:
@@ -338,11 +363,11 @@ public class buku extends javax.swing.JFrame {
             //        }
     }//GEN-LAST:event_btn_hapusActionPerformed
 
-    private void no_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_bukuActionPerformed
+    private void harga_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_harga_bukuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_no_bukuActionPerformed
+    }//GEN-LAST:event_harga_bukuActionPerformed
 
-    private void no_bukuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_no_bukuKeyTyped
+    private void harga_bukuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_harga_bukuKeyTyped
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
             evt.consume(); // Mencegah karakter yang bukan angka
@@ -351,7 +376,7 @@ public class buku extends javax.swing.JFrame {
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_no_bukuKeyTyped
+    }//GEN-LAST:event_harga_bukuKeyTyped
 
     private void no_transaksi1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_no_transaksi1ActionPerformed
         // TODO add your handling code here:
@@ -422,8 +447,10 @@ public class buku extends javax.swing.JFrame {
     private javax.swing.JButton btn_edit;
     private javax.swing.JButton btn_hapus;
     private javax.swing.JButton btn_tambah;
+    private javax.swing.JTextField harga_buku;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
@@ -434,8 +461,23 @@ public class buku extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField nama_buku;
     private javax.swing.JComboBox<String> nama_penerbit;
-    private javax.swing.JTextField no_buku;
     private javax.swing.JTextField no_transaksi1;
-    private javax.swing.JTable tblTransaksi;
+    private javax.swing.JTable tblBuku;
     // End of variables declaration//GEN-END:variables
+
+    private void showTable() throws SQLException {
+        tbl = new DefaultTableModel(new String[]{"No. Buku","Nama Buku","Nama Penerbit","Harga"},0);
+        ResultSet rs;
+        rs = db.lihat_buku();
+        while(rs.next()){
+            tbl.addRow(new Object[]{
+                rs.getString("id_buku"),
+                rs.getString("nama_buku"),
+                rs.getString("nama_penerbit"),
+                 rs.getString("harga_buku")
+            });
+        }
+        
+        tblBuku.setModel(tbl);
+    }
 }
