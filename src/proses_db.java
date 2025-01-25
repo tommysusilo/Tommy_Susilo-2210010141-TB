@@ -44,26 +44,22 @@ public class proses_db {
         }
     }
     
-     
-
-    void tambah(String id_agenda, String agenda, Date tanggal, String tempat) throws SQLException {
-         String sql = "insert into tb_agenda (id_agenda,nama_agenda, tanggal, tempat) values (?,?, ?, ?)";
+    void tambah_transaksi(String id_penjualan, String id_buku, String jumlah, String harga_satuan, String total) throws SQLException {
+         String sql = "insert into tb_transaksi (id_transaksi,id_penjualan,id_buku,harga_satuan,jumlah,total_harga) values (?,?,?,?,?,?)";
 
     pst = con.prepareStatement(sql);
 
     // Set parameter untuk query
-    pst.setString(1, id_agenda);
-
-    pst.setString(2, agenda);
+    pst.setString(1, null);
+    pst.setString(2, id_penjualan);
+    pst.setString(3, id_buku);
+     pst.setString(5, jumlah);
+     pst.setString(4, harga_satuan);
+     pst.setString(6, total);
+     
 
     // Mengonversi java.util.Date menjadi java.sql.Date dengan konstruktor
-    if (tanggal != null) {
-        pst.setDate(3, new java.sql.Date(tanggal.getTime()));  // Konversi menggunakan getTime()
-    } else {
-        pst.setNull(3, java.sql.Types.DATE); // Jika tanggal null, set null pada parameter tanggal
-    }
-
-    pst.setString(4, tempat);
+ 
 
      // Menjalankan query
      int executeUpdate = pst.executeUpdate(); // Mengeksekusi query untuk menambah data ke database
@@ -71,7 +67,7 @@ public class proses_db {
         
     }
     
-    
+     
    void tambah_buku(String id_buku, String nama, String harga, String id_penerbit) throws SQLException {
          String sql = "insert into tb_buku (id_buku,nama_buku,id_penerbit,harga_buku) values (?,?,?,?)";
 
@@ -117,7 +113,7 @@ public class proses_db {
     
     
     public ResultSet lihat_transaksi(){
-        String sql ="select * from tb_transaksi";
+        String sql ="SELECT * FROM tb_transaksi, tb_buku where tb_transaksi.id_buku = tb_buku.id_buku";
      try {
          st = con.createStatement();
          rs = st.executeQuery(sql);
@@ -174,6 +170,8 @@ public class proses_db {
          Logger.getLogger(proses_db.class.getName()).log(Level.SEVERE, null, ex);
      }
     }
+     
+  
      
       public void hapus_buku(String id){
      try {
@@ -256,11 +254,11 @@ public class proses_db {
     
     public String getLastTransactionID() throws SQLException {
     String lastID = "";
-    String query = "SELECT id_penjualan FROM tb_transaksi ORDER BY id_penjualan DESC LIMIT 1";
+    String query = "SELECT id_penjualan FROM tb_penjualan ORDER BY id_penjualan DESC LIMIT 1";
 
     try (PreparedStatement ps = con.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
         if (rs.next()) {
-            lastID = rs.getString("id_transaksi"); // Ambil ID terakhir
+            lastID = rs.getString("id_penjualan"); // Ambil ID terakhir
         }
     }
 
@@ -273,7 +271,7 @@ public class proses_db {
 
     if (lastID.isEmpty()) {
         // Jika belum ada data, mulai dari T001
-        return "T001";
+        return "001";
     }
 
     // Pisahkan prefix dan angka
@@ -284,8 +282,57 @@ public class proses_db {
     number++;
 
     // Format ulang menjadi ID baru
-    return prefix + String.format("%03d", number); // Contoh: "T002"
+    return String.format("%03d", number); // Contoh: "T002"
 }
+
+    void hapus_transaksi(String id) {
+        try {
+         String sql ="delete from tb_transaksi where id_transaksi = ?";
+         pst = con.prepareStatement(sql);
+         pst.setString(1,id);
+         int executeUpdate = pst.executeUpdate();
+     } catch (SQLException ex) {
+         Logger.getLogger(proses_db.class.getName()).log(Level.SEVERE, null, ex);
+     }
+    }
+
+    void edit_transaksi(String id_transaksi_1, String id_penjualan, String kode_buku, String jumlah_, String harga_satuan, String total_harga) throws SQLException {
+    String sql = "update tb_transaksi set id_buku=?, id_penjualan=?, harga_satuan=? , jumlah=?, total_harga=? where id_transaksi=?";
+    pst = con.prepareStatement(sql);
+
+    // Set parameter untuk query
+    pst.setString(1, kode_buku);
+    pst.setString(2, id_penjualan);
+     pst.setString(3, harga_satuan);
+        pst.setString(4, jumlah_);
+     pst.setString(5, total_harga);
+        pst.setString(6, id_transaksi_1);
+     
+
+     // Menjalankan query
+     int executeUpdate = pst.executeUpdate(); // Mengeksekusi query untuk menambah data ke database
+    }
+
+   public int total_transaksi(String id_penjualan) throws SQLException {
+    int totalSum = 0; // Variabel untuk menyimpan hasil penjumlahan
+    String query = "SELECT SUM(total_harga) AS total_sum FROM tb_transaksi WHERE id_penjualan=?";
+    
+    // Persiapkan PreparedStatement
+    try (PreparedStatement ps = con.prepareStatement(query)) {
+        ps.setString(1, id_penjualan); // Set parameter id_penjualan
+        
+        // Eksekusi query dan ambil hasil
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                totalSum = rs.getInt("total_sum"); // Ambil nilai total dari hasil query
+            }
+        }
+    }
+
+    return totalSum; // Kembalikan total sum
+}
+    
+
 
     
     

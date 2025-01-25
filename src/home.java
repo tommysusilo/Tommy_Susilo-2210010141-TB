@@ -20,11 +20,44 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Win 10
  */
+// Kelas Buku dengan nama variabel baru
+
+
+
 public class home extends javax.swing.JFrame {
+    
+    public class BukuPut {
+    private final String kodeBuku;
+    private final String judulBuku;
+    private final String hargaBuku;
+
+    public BukuPut(String kodeBuku, String judulBuku, String hargaBuku) {
+        this.kodeBuku = kodeBuku;
+        this.judulBuku = judulBuku;
+        this.hargaBuku = hargaBuku;
+    }
+
+    public String getKodeBuku() {
+        return kodeBuku;
+    }
+
+    public String getJudulBuku() {
+        return judulBuku;
+    }
+
+    public String getHargaBuku() {
+        return hargaBuku;
+    }
+
+    @Override
+    public String toString() {
+        return judulBuku;
+    }
+}
 
     private final proses_db db;
     private DefaultTableModel tbl;
-     private HashMap<String, String> bukuMap = new HashMap<>();
+    private HashMap<String, BukuPut> databukuMap = new HashMap<>();
     
 
     /**
@@ -48,6 +81,9 @@ public class home extends javax.swing.JFrame {
     }
   no_transaksi.setEditable(false);
   harga_buku.setEditable(false);
+  ttl_transaksi.setEditable(false);
+  kembalian.setEditable(false);
+  id_transaksi.setVisible(false);
    loadComboBoxData(); 
   
     }
@@ -81,7 +117,7 @@ public class home extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btn_selesai = new javax.swing.JButton();
         btn_edit1 = new javax.swing.JButton();
-        javax.swing.JTextField total_transaksi = new javax.swing.JTextField();
+        ttl_transaksi = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -90,6 +126,7 @@ public class home extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         kembalian = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
+        id_transaksi = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -300,14 +337,14 @@ public class home extends javax.swing.JFrame {
             }
         });
 
-        total_transaksi.addActionListener(new java.awt.event.ActionListener() {
+        ttl_transaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                total_transaksiActionPerformed(evt);
+                ttl_transaksiActionPerformed(evt);
             }
         });
-        total_transaksi.addKeyListener(new java.awt.event.KeyAdapter() {
+        ttl_transaksi.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                total_transaksiKeyTyped(evt);
+                ttl_transaksiKeyTyped(evt);
             }
         });
 
@@ -351,6 +388,8 @@ public class home extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Rp.");
 
+        id_transaksi.setText("jTextField1");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -367,7 +406,7 @@ public class home extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tunai, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
-                                    .addComponent(total_transaksi)))
+                                    .addComponent(ttl_transaksi)))
                             .addComponent(jLabel8)
                             .addComponent(jLabel11)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -383,6 +422,10 @@ public class home extends javax.swing.JFrame {
                             .addComponent(btn_selesai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_edit1, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))))
                 .addContainerGap(13, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(id_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,7 +434,7 @@ public class home extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(total_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ttl_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
@@ -405,7 +448,9 @@ public class home extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(kembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                .addGap(85, 85, 85)
+                .addComponent(id_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(btn_edit1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_selesai, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -489,13 +534,13 @@ public class home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_edit1ActionPerformed
 
-    private void total_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_total_transaksiActionPerformed
+    private void ttl_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttl_transaksiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_total_transaksiActionPerformed
+    }//GEN-LAST:event_ttl_transaksiActionPerformed
 
-    private void total_transaksiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_total_transaksiKeyTyped
+    private void ttl_transaksiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ttl_transaksiKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_total_transaksiKeyTyped
+    }//GEN-LAST:event_ttl_transaksiKeyTyped
 
     private void tunaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tunaiActionPerformed
         // TODO add your handling code here:
@@ -544,88 +589,141 @@ public class home extends javax.swing.JFrame {
 
     private void btn_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapusActionPerformed
         // TODO add your handling code here:
-        //        String id;
-        //        id= no_transaksi.getText();
-        //        db.hapus(id);
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
+                String id;
+                id= id_transaksi.getText();
+                db.hapus_transaksi(id);
+                try {
+                        showTable();
+                    } catch (SQLException ex) { 
+                    }
+                
+                  harga_buku.setText("");
+            jumlah.setText("");
+            ttl_harga.setText("");
+            nama_buku.setSelectedIndex(0);
     }//GEN-LAST:event_btn_hapusActionPerformed
 
     private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
-        // TODO add your handling code here:
-        //        String id_agenda,agenda,tempat;
-        //        java.util.Date tanggal;
-        //        id_agenda = no_transaksi.getText();
-        //        agenda = nama_agenda.getText();
-        //        tanggal = tgl_transaksi.getDate();
-        //        tempat = tempat_agenda.getText();
-        //        try {
-            //            db.edit(id_agenda, agenda, tanggal, tempat);
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
+         String id_transaksi_1, id_penjualan, kode_buku = null, harga_satuan, jumlah_, total_harga;
+                java.util.Date tanggal;
+        
+                id_penjualan = no_transaksi.getText();
+                id_transaksi_1 = id_transaksi.getText();
+         
+                harga_satuan = harga_buku.getText();
+                jumlah_ = jumlah.getText();
+                total_harga = ttl_harga.getText();
+                
+                  String selectedJudulBuku = (String) nama_buku.getSelectedItem();
+
+    if (selectedJudulBuku != null && !selectedJudulBuku.equals("-- Pilih Buku --")) {
+        BukuPut buku = databukuMap.get(selectedJudulBuku);
+
+        if (buku != null) {
+            kode_buku = buku.getKodeBuku(); // Ambil ID buku
+        }
+    }
+    
+        try {
+            db.edit_transaksi(id_transaksi_1,id_penjualan, kode_buku, jumlah_, harga_satuan, total_harga);
+        } catch (SQLException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//
+            harga_buku.setText("");
+            jumlah.setText("");
+            ttl_harga.setText("");
+            nama_buku.setSelectedIndex(0);
+//      
+
+                 
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_editActionPerformed
 
     private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         //        // TODO add your handling code here:
-        //        String id_agenda,agenda,tempat;
-        //        java.util.Date tanggal;
-        //
-        //        id_agenda = no_transaksi.getText();
-        //        agenda = nama_agenda.getText();
-        //        tanggal = tgl_transaksi.getDate();
-        //        tempat = tempat_agenda.getText();
-        //
-        //        try {
-            //            db.tambah(id_agenda,agenda,tanggal,tempat);
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
-        //        try {
-            //            showTable();
-            //        } catch (SQLException ex) {
-            //            Logger.getLogger(AplikasiAgendaPribadi.class.getName()).log(Level.SEVERE, null, ex);
-            //        }
+                String id_penjualan, kode_buku = null, harga_satuan, jumlah_, total_harga;
+                java.util.Date tanggal;
+        
+                id_penjualan = no_transaksi.getText();
+         
+                harga_satuan = harga_buku.getText();
+                jumlah_ = jumlah.getText();
+                total_harga = ttl_harga.getText();
+                
+                  String selectedJudulBuku = (String) nama_buku.getSelectedItem();
+
+    if (selectedJudulBuku != null && !selectedJudulBuku.equals("-- Pilih Buku --")) {
+        BukuPut buku = databukuMap.get(selectedJudulBuku);
+
+        if (buku != null) {
+            kode_buku = buku.getKodeBuku(); // Ambil ID buku
+        }
+    }
+    
+        try {
+            db.tambah_transaksi(id_penjualan, kode_buku, jumlah_, harga_satuan, total_harga);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//   
+            harga_buku.setText("");
+            jumlah.setText("");
+            ttl_harga.setText("");
+            nama_buku.setSelectedIndex(0);
+            
+         int totalSum = 0;
+        try {
+            totalSum = db.total_transaksi(id_penjualan); // Panggil metode yang menghitung total
+        } catch (SQLException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Tampilkan total transaksi di textfield ttl_transaksi
+          ttl_transaksi.setText(String.valueOf(totalSum));
+              
+
+
+                 
+        try {
+            showTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                  
     }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void tblTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTransaksiMouseClicked
         // TODO add your handling code here:
-        //        int row = tblTransaksi.getSelectedRow();
-        //        no_transaksi.setText(tblTransaksi.getValueAt(row, 0).toString());
-        //        nama_agenda.setText(tblTransaksi.getValueAt(row, 1).toString());
-        //        String tanggalStr = tblTransaksi.getValueAt(row, 2).toString();
-        //
-        //        // Mengonversi String tanggal ke Date
-        //        try {
-            //            // Menggunakan format yang sesuai dengan format tanggal di database (misalnya yyyy-MM-dd)
-            //            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            //            Date tanggal = sdf.parse(tanggalStr);
-            //
-            //            // Menetapkan tanggal ke JDateChooser
-            //            tgl_transaksi.setDate(tanggal); // Menggunakan metode setDate() untuk menetapkan nilai tanggal
-            //        } catch (ParseException e) {
-            //            // Jika parsing gagal, tampilkan error
-            //
-            //        }
-        //        tempat_agenda.setText(tblTransaksi.getValueAt(row, 3).toString());
+        int row = tblTransaksi.getSelectedRow();
+              
+                id_transaksi.setText(tblTransaksi.getValueAt(row, 0).toString());
+                harga_buku.setText(tblTransaksi.getValueAt(row, 2).toString());
+                jumlah.setText(tblTransaksi.getValueAt(row, 3).toString());
+                ttl_harga.setText(tblTransaksi.getValueAt(row, 4).toString());
+                
+                String selectedBuku = tblTransaksi.getValueAt(row, 1).toString(); // Misalnya nama penerbit ada di kolom 2
+    
+    // Set nilai JComboBox sesuai nama penerbit
+                nama_buku.setSelectedItem(selectedBuku);
     }//GEN-LAST:event_tblTransaksiMouseClicked
 
     private void nama_bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nama_bukuActionPerformed
         // TODO add your handling code here:
-        String selectedBuku = (String) nama_buku.getSelectedItem();
-    
-    // Cek apakah buku dipilih dan ada di HashMap
-    if (selectedBuku != null && bukuMap.containsKey(selectedBuku)) {
-        String hargaBuku = bukuMap.get(selectedBuku); // Ambil harga dari HashMap
-        harga_buku.setText(hargaBuku); // Set harga ke JTextField
+        String selectedJudulBuku = (String) nama_buku.getSelectedItem();
+
+    if (selectedJudulBuku != null && !selectedJudulBuku.equals("-- Pilih Buku --")) {
+        BukuPut buku = databukuMap.get(selectedJudulBuku);
+
+        if (buku != null) {
+            harga_buku.setText(buku.getHargaBuku()); // Isi harga buku
+            // Jika perlu, gunakan buku.getKodeBuku() untuk ID buku
+        }
     }
     }//GEN-LAST:event_nama_bukuActionPerformed
 
@@ -694,6 +792,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JButton btn_selesai;
     private javax.swing.JButton btn_tambah;
     private javax.swing.JTextField harga_buku;
+    private javax.swing.JTextField id_transaksi;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -719,25 +818,48 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JTextField no_transaksi;
     private javax.swing.JTable tblTransaksi;
     private javax.swing.JTextField ttl_harga;
+    private javax.swing.JTextField ttl_transaksi;
     private javax.swing.JTextField tunai;
     // End of variables declaration//GEN-END:variables
 
     private void showTable() throws SQLException {
-        tbl = new DefaultTableModel(new String[]{"No. Transaksi","Nama Buku","Nama Penerbit","Harga","waktu"},0);
+        tbl = new DefaultTableModel(new String[]{"id","Nama Buku","Harga","Jumlah","Total"},0);
         ResultSet rs;
         rs = db.lihat_transaksi();
         while(rs.next()){
             tbl.addRow(new Object[]{
                 rs.getString("id_transaksi"),
-                rs.getString("id_buku"),
-                rs.getString("id_penerbit"),
-                 rs.getString("id_penerbit"),
-                rs.getString("waktu_transaksi")
+                rs.getString("nama_buku"),
+                rs.getString("harga_satuan"),
+                 rs.getString("jumlah"),
+                rs.getString("total_harga")
             });
         }
         
         tblTransaksi.setModel(tbl);
     }
+    
+    public class Buku_put {
+    private String nama_put;
+    private String harga_put;
+
+    public Buku_put(String nama_put, String harga_put) {
+        this.nama_put = nama_put;
+        this.harga_put = harga_put;
+    }
+
+    public String getNama() {
+        return nama_put;
+    }
+
+    public String getHarga() {
+        return harga_put;
+    }
+    
+    
+
+
+}
     
      private void loadComboBoxData() {
         try {
@@ -745,19 +867,20 @@ public class home extends javax.swing.JFrame {
         
         nama_buku.removeAllItems(); // Hapus item lama (jika ada)
         nama_buku.addItem("-- Pilih Buku --"); // Tambahkan placeholder
-        bukuMap.clear(); // Bersihkan HashMap untuk menghindari duplikasi
+        databukuMap.clear(); // Bersihkan HashMap untuk menghindari duplikasi
 
         while (rs.next()) {
-            String id_penerbit = rs.getString("id_buku"); // Ambil id_penerbit
-            String nama = rs.getString("nama_buku"); // Ambil nama_penerbit
+            String kodeBuku = rs.getString("id_buku"); // Ambil id_penerbit
+            String judul = rs.getString("nama_buku"); // Ambil nama_penerbit
             String hargaBuku = rs.getString("harga_buku"); // Ambil harga buku
                 
             
             // Simpan ke HashMap
-            bukuMap.put(nama,hargaBuku);
+            //bukuMap.put(nama,hargaBuku);
+              databukuMap.put(judul, new BukuPut(kodeBuku, judul, hargaBuku));
 
             // Tambahkan nama ke JComboBox
-            nama_buku.addItem(nama);
+            nama_buku.addItem(judul);
             }
         } catch (SQLException ex) {
             // Tampilkan error (debugging)
@@ -788,6 +911,32 @@ public class home extends javax.swing.JFrame {
     }
 }
      
+     
+      private void calculateTotal2() {
+    try {
+        // Ambil nilai dari field harga dan jumlah
+        String totalText = ttl_transaksi.getText();
+        String tunaiText = tunai.getText();
+        
+        // Pastikan tidak ada field kosong
+        if (!totalText.isEmpty() && !tunaiText.isEmpty()) {
+            double totalvalue = Double.parseDouble(totalText);
+            int tunaiValue = Integer.parseInt(tunaiText);
+
+            // Hitung total harga
+            double kembalianvalue = tunaiValue - totalvalue;
+
+            // Set nilai total ke field ttl_harga
+           kembalian.setText(String.valueOf(kembalianvalue));
+        }
+    } catch (NumberFormatException ex) {
+        // Jika input tidak valid, kosongkan field ttl_harga
+        kembalian.setText("");
+    }
+}
+     
+     
+     
      private void initListeners() {
     harga_buku.addKeyListener(new KeyAdapter() {
         @Override
@@ -801,6 +950,22 @@ public class home extends javax.swing.JFrame {
         public void keyReleased(KeyEvent e) {
             calculateTotal();
         }
+        
+    });
+    
+    ttl_transaksi.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyReleased(KeyEvent e) {
+            calculateTotal2();
+        }
+    });
+
+    tunai.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyReleased(KeyEvent e) {
+            calculateTotal2();
+        }
+        
     });
 }
 
