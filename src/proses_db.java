@@ -331,10 +331,39 @@ public class proses_db {
 
     return totalSum; // Kembalikan total sum
 }
-    
 
+    ResultSet lihat_transaksi_id(String id_jual) {
+    String sql = "SELECT * FROM tb_transaksi INNER JOIN tb_buku ON tb_transaksi.id_buku = tb_buku.id_buku WHERE id_penjualan = ?";
+    try {
+        // Menggunakan PreparedStatement untuk query dengan parameter
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, id_jual); // Set nilai parameter ke id_jual
+        
+        rs = ps.executeQuery(); // Eksekusi query
+    } catch (SQLException ex) {
+        Logger.getLogger(proses_db.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return rs; // Return ResultSet
+}
 
-    
-    
+    void tambah_penjualan(String id_jual, String total_harga, String kembalian_1, String tunai_1)throws SQLException {
+       String sql = "insert into tb_penjualan (id_penjualan,total_transaksi,tunai,kembalian) values (?,?,?,?)";
+
+    pst = con.prepareStatement(sql);
+
+    // Set parameter untuk query
+    pst.setString(1, id_jual);
+    pst.setString(2, total_harga);
+     pst.setString(4, kembalian_1);
+     pst.setString(3, tunai_1);
+
+    // Mengonversi java.util.Date menjadi java.sql.Date dengan konstruktor
+ 
+
+     // Menjalankan query
+     int executeUpdate = pst.executeUpdate(); // Mengeksekusi query untuk menambah data ke database
+          
+    }
+ 
     
 }

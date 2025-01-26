@@ -528,6 +528,21 @@ public class home extends javax.swing.JFrame {
 
     private void btn_selesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selesaiActionPerformed
         // TODO add your handling code here:
+         String id_jual,total_harga_1,tunai_1,kembalian_1;
+               
+        
+                id_jual = no_transaksi.getText();
+                total_harga_1 = ttl_transaksi.getText();
+                kembalian_1 = kembalian.getText();
+                tunai_1 = tunai.getText();
+                
+                       
+        try {
+            db.tambah_penjualan(id_jual, total_harga_1, kembalian_1, tunai_1);
+        } catch (SQLException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btn_selesaiActionPerformed
 
     private void btn_edit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit1ActionPerformed
@@ -592,6 +607,21 @@ public class home extends javax.swing.JFrame {
                 String id;
                 id= id_transaksi.getText();
                 db.hapus_transaksi(id);
+                
+               String id_jual = no_transaksi.getText();
+    
+        int totalSum = 0;
+        try {
+            totalSum = db.total_transaksi(id_jual); // Panggil metode yang menghitung total
+        } catch (SQLException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+             
+
+        // Tampilkan total transaksi di textfield ttl_transaksi
+          ttl_transaksi.setText(String.valueOf(totalSum));
+          
                 try {
                         showTable();
                     } catch (SQLException ex) { 
@@ -623,6 +653,20 @@ public class home extends javax.swing.JFrame {
             kode_buku = buku.getKodeBuku(); // Ambil ID buku
         }
     }
+    
+          String id_jual = no_transaksi.getText();
+    
+        int totalSum = 0;
+        try {
+            totalSum = db.total_transaksi(id_jual); // Panggil metode yang menghitung total
+        } catch (SQLException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+             
+
+        // Tampilkan total transaksi di textfield ttl_transaksi
+          ttl_transaksi.setText(String.valueOf(totalSum));
     
         try {
             db.edit_transaksi(id_transaksi_1,id_penjualan, kode_buku, jumlah_, harga_satuan, total_harga);
@@ -825,7 +869,8 @@ public class home extends javax.swing.JFrame {
     private void showTable() throws SQLException {
         tbl = new DefaultTableModel(new String[]{"id","Nama Buku","Harga","Jumlah","Total"},0);
         ResultSet rs;
-        rs = db.lihat_transaksi();
+        String id_jual = no_transaksi.getText();
+        rs = db.lihat_transaksi_id(id_jual);
         while(rs.next()){
             tbl.addRow(new Object[]{
                 rs.getString("id_transaksi"),
