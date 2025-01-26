@@ -1,12 +1,20 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 
@@ -547,6 +555,30 @@ public class home extends javax.swing.JFrame {
 
     private void btn_edit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit1ActionPerformed
         // TODO add your handling code here:
+         try {
+        // Lokasi file JRXML
+        String reportPath = "C:\\Users\\Win 10\\Documents\\PBO2\\ApliklasiPenjualanBuku\\src\\report_transaksi.jrxml";
+        
+        JasperReport jasperReport = JasperCompileManager.compileReport(reportPath);
+        
+        // Buat parameter kosong (jika tidak ada parameter yang perlu dikirim)
+        Map<String, Object> parameters = new HashMap<>();
+        String id_jual = no_transaksi.getText(); // Ambil ID transaksi dari text field
+        parameters.put("id", id_jual); // Kirim parameter ke laporan
+        
+        proses_db db = new proses_db();
+        Connection con = db.con; // Ambil koneksi dari kelas proses_db
+        
+        // Gunakan JREmptyDataSource untuk laporan kosong
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, con);
+        
+        // Tampilkan laporan di viewer
+        JasperViewer.viewReport(jasperPrint, false);
+        
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Gagal menampilkan laporan: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btn_edit1ActionPerformed
 
     private void ttl_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttl_transaksiActionPerformed

@@ -238,7 +238,7 @@ public class proses_db {
     pst = con.prepareStatement(sql);
 
     // Set parameter untuk query
- pst.setString(4, id_buku);
+    pst.setString(4, id_buku);
 
     pst.setString(1, nama);
      pst.setString(2,id_penerbit);
