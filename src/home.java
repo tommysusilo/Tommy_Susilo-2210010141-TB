@@ -92,6 +92,7 @@ public class home extends javax.swing.JFrame {
   ttl_transaksi.setEditable(false);
   kembalian.setEditable(false);
   id_transaksi.setVisible(false);
+  btn_edit1 .setVisible(false);
    loadComboBoxData(); 
   
     }
@@ -550,12 +551,8 @@ public class home extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }//GEN-LAST:event_btn_selesaiActionPerformed
-
-    private void btn_edit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit1ActionPerformed
-        // TODO add your handling code here:
-         try {
+        
+             try {
         // Lokasi file JRXML
         String reportPath = "C:\\Users\\Win 10\\Documents\\PBO2\\ApliklasiPenjualanBuku\\src\\report_transaksi.jrxml";
         
@@ -563,8 +560,8 @@ public class home extends javax.swing.JFrame {
         
         // Buat parameter kosong (jika tidak ada parameter yang perlu dikirim)
         Map<String, Object> parameters = new HashMap<>();
-        String id_jual = no_transaksi.getText(); // Ambil ID transaksi dari text field
-        parameters.put("id", id_jual); // Kirim parameter ke laporan
+        String id_jual1 = no_transaksi.getText(); // Ambil ID transaksi dari text field
+        parameters.put("id", id_jual1); // Kirim parameter ke laporan
         
         proses_db db = new proses_db();
         Connection con = db.con; // Ambil koneksi dari kelas proses_db
@@ -579,6 +576,35 @@ public class home extends javax.swing.JFrame {
         ex.printStackTrace();
         JOptionPane.showMessageDialog(this, "Gagal menampilkan laporan: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+    }//GEN-LAST:event_btn_selesaiActionPerformed
+
+    private void btn_edit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit1ActionPerformed
+        // TODO add your handling code here:
+//         try {
+//        // Lokasi file JRXML
+//        String reportPath = "C:\\Users\\Win 10\\Documents\\PBO2\\ApliklasiPenjualanBuku\\src\\report_transaksi.jrxml";
+//        
+//        JasperReport jasperReport = JasperCompileManager.compileReport(reportPath);
+//        
+//        // Buat parameter kosong (jika tidak ada parameter yang perlu dikirim)
+//        Map<String, Object> parameters = new HashMap<>();
+//        String id_jual = no_transaksi.getText(); // Ambil ID transaksi dari text field
+//        parameters.put("id", id_jual); // Kirim parameter ke laporan
+//        
+//        proses_db db = new proses_db();
+//        Connection con = db.con; // Ambil koneksi dari kelas proses_db
+//        
+//        // Gunakan JREmptyDataSource untuk laporan kosong
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, con);
+//        
+//        // Tampilkan laporan di viewer
+//        JasperViewer.viewReport(jasperPrint, false);
+//        
+//    } catch (Exception ex) {
+//        ex.printStackTrace();
+//        JOptionPane.showMessageDialog(this, "Gagal menampilkan laporan: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+//    }
     }//GEN-LAST:event_btn_edit1ActionPerformed
 
     private void ttl_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ttl_transaksiActionPerformed
